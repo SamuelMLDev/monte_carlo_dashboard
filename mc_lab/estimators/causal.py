@@ -159,8 +159,6 @@ def _fit_outcome_model(
     group = train.loc[train["A"] == treatment]
     if len(group) < max(4, len(covariates) + 2):
         raise ValueError("Insufficient treatment-specific observations for outcome nuisance model")
-    train_idx = np.arange(len(group))
-    predict_idx = np.arange(len(predict))
     # Work on the group/predict frames directly so indices need not align.
     if covariates:
         x_train = np.column_stack([np.ones(len(group)), group[covariates].to_numpy(dtype=float)])
