@@ -42,13 +42,13 @@ $$
 with optional quadratic/nonlinear structure. Logistic treatment assignment uses
 
 $$
-P(A=1\mid X)=\operatorname{logit}^{-1}(\alpha_0 + \alpha_1X_1 + 0.35\alpha_1X_2),
+P(A=1\mid X)=\mathrm{logit}^{-1}(\alpha_0 + \alpha_1X_1 + 0.35\alpha_1X_2),
 $$
 
 when a second covariate is available. For binary outcomes,
 
 $$
-P(Y=1\mid A,X)=\operatorname{logit}^{-1}\{\beta_0+\beta^\top X+A\tau(X)\}.
+P(Y=1\mid A,X)=\mathrm{logit}^{-1}\{\beta_0+\beta^\top X+A\tau(X)\}.
 $$
 
 The simulation truth is the **replication-specific sample average treatment effect (sample ATE)** implied by the structural potential-outcome means. This keeps the ground truth well defined under heterogeneous and binary-outcome designs.
@@ -366,7 +366,7 @@ $$
 The propensity score is fit by an unpenalized logistic model. The unnormalized ATE estimate is
 
 $$
-\hat\tau_{IPW}=n^{-1}\sum_i\left\{\frac{A_iY_i}{\hat e(X_i)}-\frac{(1-A_i)Y_i}{1-\hat e(X_i)}\right\}.
+\hat\tau_{IPW}=n^{-1}\sum_i \left(\frac{A_iY_i}{\hat e(X_i)}-\frac{(1-A_i)Y_i}{1-\hat e(X_i)}\right).
 $$
 
 The stabilized variant uses normalized/Hájek weighted means. Weight clipping is explicit and configurable.
