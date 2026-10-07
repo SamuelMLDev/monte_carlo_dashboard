@@ -278,7 +278,7 @@ def _show_dgp_math(dgp: DGPConfig) -> None:
             rhs += " + " + " + ".join(extras)
         st.latex(rf"Y = {rhs} + A({tau}) + \varepsilon")
     else:
-        st.latex(r"P(Y=1\mid A,X)=\operatorname{logit}^{-1}\{\beta_0+\beta'X+A\tau(X)\}")
+        st.latex(r"P(Y=1\mid A,X)=\mathrm{logit}^{-1}\{\beta_0+\beta'X+A\tau(X)\}")
         st.caption("For binary outcomes, estimators target the risk-difference ATE; τ is the structural log-odds shift.")
     if dgp.assignment_mode == "randomized":
         st.latex(rf"P(A=1\mid X)={dgp.treatment_probability:.3g}")
@@ -286,7 +286,7 @@ def _show_dgp_math(dgp: DGPConfig) -> None:
         score = rf"\alpha_0+{dgp.confounding_strength:.3g}X_1"
         if dgp.num_covariates > 1:
             score += rf"+0.35\,{dgp.confounding_strength:.3g}X_2"
-        st.latex(rf"P(A=1\mid X)=\operatorname{{logit}}^{{-1}}({score})")
+        st.latex(rf"P(A=1\mid X)=\mathrm{{logit}}^{{-1}}({score})")
     st.caption(DEFAULT_GENERATOR.describe(dgp))
 
 
