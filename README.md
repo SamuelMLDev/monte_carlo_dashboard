@@ -33,23 +33,23 @@ Configure:
 
 For continuous outcomes the structural template is
 
-\[
+$$
 Y = \beta_0 + \beta^\top X + f(X) + A\tau(X) + \varepsilon,
 \qquad
 \tau(X)=\tau_0 + \tau_1 X_1,
-\]
+$$
 
 with optional quadratic/nonlinear structure. Logistic treatment assignment uses
 
-\[
+$$
 P(A=1\mid X)=\operatorname{logit}^{-1}(\alpha_0 + \alpha_1X_1 + 0.35\alpha_1X_2),
-\]
+$$
 
 when a second covariate is available. For binary outcomes,
 
-\[
+$$
 P(Y=1\mid A,X)=\operatorname{logit}^{-1}\{\beta_0+\beta^\top X+A\tau(X)\}.
-\]
+$$
 
 The simulation truth is the **replication-specific sample average treatment effect (sample ATE)** implied by the structural potential-outcome means. This keeps the ground truth well defined under heterogeneous and binary-outcome designs.
 
@@ -114,15 +114,15 @@ For successful replications the summary includes, where meaningful:
 
 The project also reports **Monte Carlo standard errors (MCSEs)** for finite-replication uncertainty. Examples include
 
-\[
+$$
 MCSE(\widehat{\text{coverage}})=\sqrt{\hat p(1-\hat p)/R}
-\]
+$$
 
 and
 
-\[
+$$
 MCSE(\widehat{\text{bias}})=SD(\hat\tau_r-\tau_r)/\sqrt{R}.
-\]
+$$
 
 RMSE uses a delta-method MCSE from the Monte Carlo distribution of squared errors. Variance/SD MCSEs use empirical influence-function calculations rather than assuming normally distributed Monte Carlo estimates.
 
@@ -288,7 +288,7 @@ Run the complete test suite:
 pytest -q
 ```
 
-Validated result for this build: **43 tests passed**. See [`docs/validation.md`](docs/validation.md) for the recorded statistical, preset, export, and environment checks.
+Validated result for this build: **44 tests passed**. See [`docs/validation.md`](docs/validation.md) for the recorded statistical, preset, export, and environment checks.
 
 Optional development checks after `pip install -e '.[dev]'`:
 
@@ -335,11 +335,11 @@ The automated tests cover:
 
 ### Difference in means
 
-\[
+$$
 \hat\tau = \bar Y_1-\bar Y_0,
 \qquad
 SE(\hat\tau)=\sqrt{s_1^2/n_1+s_0^2/n_0}.
-\]
+$$
 
 Intervals use a normal critical value. The estimator is intentionally unadjusted and is expected to be biased under confounded assignment.
 
@@ -347,9 +347,9 @@ Intervals use a normal critical value. The estimator is intentionally unadjusted
 
 The adjustment model is
 
-\[
+$$
 Y=\beta_0+\tau A+\beta^\top X+e.
-\]
+$$
 
 Conventional OLS and HC3 covariance variants are both available. Under deliberately nonlinear DGPs, this model can be misspecified; that is a feature of the simulation design, not silently repaired by the application.
 
@@ -357,17 +357,17 @@ Conventional OLS and HC3 covariance variants are both available. Under deliberat
 
 Continuous outcomes use linear g-computation. Binary outcomes use logistic outcome regression and average the fitted risk difference
 
-\[
+$$
 \hat\tau = n^{-1}\sum_i \{\hat m_1(X_i)-\hat m_0(X_i)\}.
-\]
+$$
 
 ### IPW
 
 The propensity score is fit by an unpenalized logistic model. The unnormalized ATE estimate is
 
-\[
+$$
 \hat\tau_{IPW}=n^{-1}\sum_i\left\{\frac{A_iY_i}{\hat e(X_i)}-\frac{(1-A_i)Y_i}{1-\hat e(X_i)}\right\}.
-\]
+$$
 
 The stabilized variant uses normalized/Hájek weighted means. Weight clipping is explicit and configurable.
 
@@ -375,11 +375,11 @@ The stabilized variant uses normalized/Hájek weighted means. Weight clipping is
 
 The doubly robust estimator uses deterministic two-fold cross-fitting with the score
 
-\[
+$$
 \hat m_1(X)-\hat m_0(X)
 +\frac{A\{Y-\hat m_1(X)\}}{\hat e(X)}
 -\frac{(1-A)\{Y-\hat m_0(X)\}}{1-\hat e(X)}.
-\]
+$$
 
 See `docs/methodology.md` for the exact implementation assumptions and inference caveats.
 
