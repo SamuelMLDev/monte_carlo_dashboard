@@ -113,16 +113,26 @@ python -m pip install -e . --no-deps --no-build-isolation
 
 The installed package reported version `0.3.0`.
 
-## Streamlit launch limitation in the validation container
+## Local Windows validation
 
-The validation container does not have Streamlit preinstalled. An explicit attempt to install `streamlit>=1.40,<2` failed because outbound package-index/DNS access is blocked. Therefore a real browser-level Streamlit launch cannot truthfully be claimed for this environment.
+The published repository was subsequently validated in a Windows PowerShell environment with Python 3.14.2.
 
-The application was syntax-compiled, all backend modules used by the UI were exercised, and the source-level page wiring was inspected. On a normal local environment with dependencies installed, run:
+Commands and observed results:
 
-```bash
+```text
+python -m pytest -q
+44 passed
+
+ruff check .
+All checks passed!
+
 streamlit run app.py
+Uvicorn server started on :::8501
+Local URL: http://localhost:8501
 ```
 
-## Static checks
+The application therefore has a confirmed local Streamlit launch in addition to the backend validation recorded above. The current source also replaces Streamlit's deprecated `use_container_width=True` argument with `width="stretch"`.
 
-Python compilation was run over the application, package, compatibility modules, and scripts. Ruff and mypy configuration are included in `pyproject.toml`; the validation container does not have those optional tools installed and cannot fetch them because of the same network restriction.
+## Continuous integration
+
+The repository includes a GitHub Actions workflow that runs Ruff and the full pytest suite on Python 3.10, 3.11, 3.12, 3.13, and 3.14 for pushes and pull requests targeting `main`.
