@@ -23,7 +23,7 @@ def prepare_empirical_data(
     data = frame[columns].dropna().copy()
     if treated_value is None:
         unique = list(pd.unique(data[treatment]))
-        if set(unique).issubset({0, 1, 0.0, 1.0, False, True}):
+        if set(unique).issubset({0, 1}):
             a = data[treatment].astype(int)
         elif len(unique) == 2:
             treated_value = unique[-1]

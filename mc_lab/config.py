@@ -71,7 +71,7 @@ class DGPConfig:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, payload: dict[str, Any]) -> "DGPConfig":
+    def from_dict(cls, payload: dict[str, Any]) -> DGPConfig:
         return cls(**payload)
 
 
@@ -124,7 +124,7 @@ class ExperimentSpec:
         return payload
 
     @classmethod
-    def from_dict(cls, payload: dict[str, Any]) -> "ExperimentSpec":
+    def from_dict(cls, payload: dict[str, Any]) -> ExperimentSpec:
         data = dict(payload)
         data["estimators"] = tuple(data.get("estimators", ("OLS regression",)))
         data["factors"] = {key: tuple(values) for key, values in data.get("factors", {}).items()}

@@ -14,7 +14,6 @@ import yaml
 from . import __version__
 from .config import ExperimentSpec, SimulationCondition
 
-
 PACKAGE_NAMES = ["numpy", "pandas", "scipy", "statsmodels", "scikit-learn", "matplotlib", "streamlit", "PyYAML", "Jinja2"]
 
 

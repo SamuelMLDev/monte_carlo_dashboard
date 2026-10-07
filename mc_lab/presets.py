@@ -6,7 +6,6 @@ from dataclasses import replace
 
 from .config import DGPConfig, ExperimentSpec
 
-
 DGP_PRESETS: dict[str, tuple[str, DGPConfig]] = {
     "Clean randomized experiment": (
         "Linear continuous outcome, randomized treatment, Gaussian noise.",

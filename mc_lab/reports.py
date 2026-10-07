@@ -5,8 +5,8 @@ from __future__ import annotations
 import base64
 import html
 import json
+from collections.abc import Iterable
 from io import BytesIO
-from typing import Iterable
 
 import pandas as pd
 from jinja2 import Template
@@ -14,7 +14,6 @@ from matplotlib.figure import Figure
 
 from .config import ExperimentSpec
 from .generators import get_generator
-
 
 _TEMPLATE = Template(
     """<!doctype html>

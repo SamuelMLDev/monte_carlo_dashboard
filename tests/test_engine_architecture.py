@@ -5,7 +5,13 @@ import pandas as pd
 from mc_lab.config import DGPConfig, ExperimentSpec
 from mc_lab.engine import run_experiment
 from mc_lab.grid import build_conditions, estimate_workload
-from mc_lab.manifests import create_manifest, manifest_from_text, manifest_to_json, manifest_to_yaml, spec_from_manifest
+from mc_lab.manifests import (
+    create_manifest,
+    manifest_from_text,
+    manifest_to_json,
+    manifest_to_yaml,
+    spec_from_manifest,
+)
 from mc_lab.presets import stress_test_spec
 from mc_lab.reports import build_html_report
 

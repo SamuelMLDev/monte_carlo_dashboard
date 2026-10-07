@@ -9,7 +9,6 @@ from typing import Any
 from .config import DGPConfig, ExperimentSpec, SimulationCondition
 from .seeds import stable_seed
 
-
 FACTOR_LABELS: dict[str, str] = {
     "sample_size": "Sample size",
     "noise_sd": "Noise SD",

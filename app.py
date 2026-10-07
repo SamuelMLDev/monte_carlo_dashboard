@@ -46,11 +46,10 @@ from mc_lab.plots import (
     residual_plot,
     weight_distribution_plot,
 )
-from mc_lab.presets import DGP_PRESETS, STUDY_PRESETS, dgp_preset, stress_test_spec, study_preset
+from mc_lab.presets import DGP_PRESETS, STUDY_PRESETS, dgp_preset, study_preset
 from mc_lab.reports import build_html_report
 from mc_lab.synthetic_eval import evaluate_tabular_synthetic, train_synthetic_test_real
 from mc_lab.utils import dataframe_to_csv_bytes, format_mc
-
 
 st.set_page_config(page_title="Monte Carlo Research Laboratory", layout="wide")
 

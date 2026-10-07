@@ -5,7 +5,6 @@ from __future__ import annotations
 import pandas as pd
 
 from mc_lab.estimators.base import EstimateResult
-from mc_lab.estimators.registry import ESTIMATOR_NAMES as RESEARCH_ESTIMATORS
 from mc_lab.estimators.registry import estimate_effect as _research_estimate
 
 

@@ -10,12 +10,11 @@ from .base import EstimateResult, Estimator
 from .causal import AIPWEstimator, IPWEstimator, StabilizedIPWEstimator
 from .core import (
     DifferenceInMeansEstimator,
-    OLSHC3Estimator,
     OLSEstimator,
+    OLSHC3Estimator,
     OutcomeRegressionEstimator,
     RobustRegressionEstimator,
 )
-
 
 _ESTIMATOR_CLASSES: tuple[type[Estimator], ...] = (
     DifferenceInMeansEstimator,
