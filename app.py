@@ -311,14 +311,14 @@ st.caption("Scientific scope: reported performance is conditional on the configu
 with st.sidebar:
     st.header("Study presets")
     study_preset_name = st.selectbox("Load simulation study", ["Custom"] + list(STUDY_PRESETS), key="study_preset_selector")
-    if st.button("Load study preset", use_container_width=True, disabled=study_preset_name == "Custom"):
+    if st.button("Load study preset", width="stretch", disabled=study_preset_name == "Custom"):
         _apply_spec_to_state(study_preset(study_preset_name))
         st.rerun()
 
     dgp_preset_name = st.selectbox("Load DGP preset", ["Custom"] + list(DGP_PRESETS), key="dgp_preset_selector")
     if dgp_preset_name != "Custom":
         st.caption(DGP_PRESETS[dgp_preset_name][0])
-    if st.button("Load DGP preset", use_container_width=True, disabled=dgp_preset_name == "Custom"):
+    if st.button("Load DGP preset", width="stretch", disabled=dgp_preset_name == "Custom"):
         current = _current_spec() if "study_title" in st.session_state else ExperimentSpec()
         _apply_spec_to_state(replace(current, dgp=dgp_preset(dgp_preset_name)))
         st.rerun()
@@ -326,7 +326,7 @@ with st.sidebar:
     st.divider()
     st.subheader("Load Experiment Configuration")
     manifest_upload = st.file_uploader("JSON or YAML manifest", type=["json", "yaml", "yml"], key="manifest_upload")
-    if st.button("Load configuration", use_container_width=True, disabled=manifest_upload is None):
+    if st.button("Load configuration", width="stretch", disabled=manifest_upload is None):
         try:
             payload = manifest_from_text(manifest_upload.getvalue().decode("utf-8"), manifest_upload.name)
             _apply_spec_to_state(spec_from_manifest(payload))
@@ -441,7 +441,7 @@ with tabs[1]:
     st.subheader("Estimators")
     st.multiselect("Evaluate estimators on every generated dataset", list(ESTIMATOR_NAMES), default=["OLS regression"], key="estimators")
     selected = st.session_state.get("estimators", ["OLS regression"])
-    st.dataframe(pd.DataFrame({"Estimator": selected, "Method": [ESTIMATOR_DESCRIPTIONS.get(name, "") for name in selected]}), hide_index=True, use_container_width=True)
+    st.dataframe(pd.DataFrame({"Estimator": selected, "Method": [ESTIMATOR_DESCRIPTIONS.get(name, "") for name in selected]}), hide_index=True, width="stretch")
     if st.session_state.get("outcome_type") == "binary" and "Robust regression (Huber)" in selected:
         st.warning("Huber RLM is a continuous-outcome method in this laboratory. If selected for a binary-outcome study, each fit is retained as an explicit unsupported-method failure rather than producing a misleading estimate.")
     with st.expander("Advanced nuisance-model controls"):
@@ -474,7 +474,7 @@ with tabs[2]:
         spec = None
         st.error(f"Study design is not valid: {exc}")
 
-    if st.button("Run Monte Carlo Experiment", type="primary", use_container_width=True, disabled=spec is None):
+    if st.button("Run Monte Carlo Experiment", type="primary", width="stretch", disabled=spec is None):
         progress = st.progress(0.0, text="Running simulation study…")
 
         def update_progress(done: int, total: int) -> None:
@@ -524,9 +524,9 @@ with tabs[3]:
             "extreme_weight_replication_rate", "relative_rmse", "relative_rmse_mcse", "rmse_rank",
             "replications", "successful_replications", "reported_se_replications", "valid_ci_replications", "rejection_replications",
         ] if column in summary]
-        st.dataframe(summary[display_columns], hide_index=True, use_container_width=True, height=440)
+        st.dataframe(summary[display_columns], hide_index=True, width="stretch", height=440)
         with st.expander("Replication-level results", expanded=False):
-            st.dataframe(result.replication_results, hide_index=True, use_container_width=True, height=360)
+            st.dataframe(result.replication_results, hide_index=True, width="stretch", height=360)
 
         first = summary.iloc[0]
         st.markdown("#### First estimator-condition MC summary")
@@ -551,7 +551,7 @@ with tabs[3]:
                 "Mean RMSE": float(hist_summary["rmse"].mean()),
                 "Mean coverage": float(hist_summary["coverage"].mean()),
             })
-        st.dataframe(pd.DataFrame(history_rows), hide_index=True, use_container_width=True)
+        st.dataframe(pd.DataFrame(history_rows), hide_index=True, width="stretch")
 
 with tabs[4]:
     st.subheader("Diagnostics")
@@ -585,7 +585,7 @@ with tabs[4]:
             k3.metric("Extreme weights >10", f"{100 * diag['extreme_weight_fraction']:.1f}%")
             k4.metric("Common-support width", f"{diag['overlap_width']:.3f}")
             st.caption(f"Descriptive heteroskedasticity indicator corr(|residual|, |X1|): {heteroskedasticity_indicator(data):.3f}")
-            st.dataframe(diag["balance"], hide_index=True, use_container_width=True)
+            st.dataframe(diag["balance"], hide_index=True, width="stretch")
         except Exception as exc:
             st.warning(f"Treatment diagnostics were not available for this replication: {exc}")
 
@@ -594,10 +594,10 @@ with tabs[4]:
             st.success("No failed estimator fits were recorded in this experiment.")
         else:
             st.warning(f"{len(result.failures):,} estimator fits failed. They are retained below rather than silently dropped.")
-            st.dataframe(result.failures, hide_index=True, use_container_width=True, height=300)
+            st.dataframe(result.failures, hide_index=True, width="stretch", height=300)
         warning_rows = result.replication_results.loc[result.replication_results["status"].ne("ok")]
         if not warning_rows.empty:
-            st.dataframe(warning_rows[["condition_id", "replication", "estimator", "status", "error_message"]], hide_index=True, use_container_width=True)
+            st.dataframe(warning_rows[["condition_id", "replication", "estimator", "status", "error_message"]], hide_index=True, width="stretch")
 
 with tabs[5]:
     st.subheader("Visualizations")
@@ -650,7 +650,7 @@ with tabs[6]:
         )
         st.json(active_manifest["seed_model"])
         st.markdown("#### Software environment")
-        st.dataframe(pd.DataFrame([{"Package": key, "Version": value} for key, value in package_versions().items()]), hide_index=True, use_container_width=True)
+        st.dataframe(pd.DataFrame([{"Package": key, "Version": value} for key, value in package_versions().items()]), hide_index=True, width="stretch")
         with st.expander("Complete manifest", expanded=False):
             st.json(active_manifest)
 
@@ -662,13 +662,13 @@ with tabs[7]:
         manifest_json = manifest_to_json(active_manifest)
         manifest_yaml = manifest_to_yaml(active_manifest)
         c1, c2, c3, c4 = st.columns(4)
-        c1.download_button("Replication results CSV", dataframe_to_csv_bytes(result.replication_results), "replication_results.csv", "text/csv", use_container_width=True)
-        c2.download_button("Summary metrics CSV", dataframe_to_csv_bytes(result.summary), "summary_metrics.csv", "text/csv", use_container_width=True)
-        c3.download_button("Manifest JSON", manifest_json, "experiment_manifest.json", "application/json", use_container_width=True)
-        c4.download_button("Manifest YAML", manifest_yaml, "experiment_manifest.yaml", "application/x-yaml", use_container_width=True)
+        c1.download_button("Replication results CSV", dataframe_to_csv_bytes(result.replication_results), "replication_results.csv", "text/csv", width="stretch")
+        c2.download_button("Summary metrics CSV", dataframe_to_csv_bytes(result.summary), "summary_metrics.csv", "text/csv", width="stretch")
+        c3.download_button("Manifest JSON", manifest_json, "experiment_manifest.json", "application/json", width="stretch")
+        c4.download_button("Manifest YAML", manifest_yaml, "experiment_manifest.yaml", "application/x-yaml", width="stretch")
 
         first_condition = result.replication_results.loc[result.replication_results["condition_id"] == result.replication_results["condition_id"].iloc[0]]
-        if st.button("Prepare HTML research report", use_container_width=True):
+        if st.button("Prepare HTML research report", width="stretch"):
             report_figures = [
                 (estimate_distribution_plot(first_condition), "Sampling distributions for the first simulation condition."),
                 (forest_summary_plot(first_condition), "Estimator means and empirical standard deviations for the first condition."),
@@ -692,11 +692,11 @@ with tabs[7]:
             for figure, _ in report_figures:
                 plt.close(figure)
         if "prepared_report_html" in st.session_state:
-            st.download_button("Download HTML research report", st.session_state["prepared_report_html"], "monte_carlo_research_report.html", "text/html", type="primary", use_container_width=True)
+            st.download_button("Download HTML research report", st.session_state["prepared_report_html"], "monte_carlo_research_report.html", "text/html", type="primary", width="stretch")
 
         p1, p2 = st.columns(2)
-        p1.download_button("Distribution plot PNG", _figure_png(estimate_distribution_plot(first_condition)), "estimate_distribution.png", "image/png", use_container_width=True)
-        p2.download_button("Convergence plot PNG", _figure_png(monte_carlo_convergence_plot(first_condition, active_spec.estimators[0])), "monte_carlo_convergence.png", "image/png", use_container_width=True)
+        p1.download_button("Distribution plot PNG", _figure_png(estimate_distribution_plot(first_condition)), "estimate_distribution.png", "image/png", width="stretch")
+        p2.download_button("Convergence plot PNG", _figure_png(monte_carlo_convergence_plot(first_condition, active_spec.estimators[0])), "monte_carlo_convergence.png", "image/png", width="stretch")
 
 with tabs[8]:
     st.subheader("Empirical Data Exploration")
@@ -704,7 +704,7 @@ with tabs[8]:
     empirical_upload = st.file_uploader("Upload empirical CSV", type=["csv"], key="empirical_csv")
     if empirical_upload is not None:
         empirical_frame = pd.read_csv(empirical_upload)
-        st.dataframe(empirical_frame.head(20), use_container_width=True)
+        st.dataframe(empirical_frame.head(20), width="stretch")
         columns = list(empirical_frame.columns)
         if len(columns) >= 2:
             c1, c2 = st.columns(2)
@@ -737,7 +737,7 @@ with tabs[8]:
                 except Exception as exc:
                     st.error(f"Empirical comparison failed: {exc}")
             if "empirical_comparison" in st.session_state:
-                st.dataframe(st.session_state["empirical_comparison"], hide_index=True, use_container_width=True)
+                st.dataframe(st.session_state["empirical_comparison"], hide_index=True, width="stretch")
                 mapped = st.session_state["empirical_mapped"]
                 try:
                     ediag = treatment_diagnostics(mapped)
@@ -769,13 +769,13 @@ with tabs[8]:
         st.write("**Novelty / duplicate rate**", evaluation["novelty"])
         if not evaluation["numerical"].empty:
             st.markdown("#### Numerical marginals")
-            st.dataframe(evaluation["numerical"], hide_index=True, use_container_width=True)
+            st.dataframe(evaluation["numerical"], hide_index=True, width="stretch")
         if not evaluation["categorical"].empty:
             st.markdown("#### Categorical marginals")
-            st.dataframe(evaluation["categorical"], hide_index=True, use_container_width=True)
+            st.dataframe(evaluation["categorical"], hide_index=True, width="stretch")
         if not evaluation["pairwise_dependencies"].empty:
             st.markdown("#### Pairwise dependency preservation")
-            st.dataframe(evaluation["pairwise_dependencies"], hide_index=True, use_container_width=True)
+            st.dataframe(evaluation["pairwise_dependencies"], hide_index=True, width="stretch")
         common_targets = [column for column in real.columns if column in synthetic.columns]
         if common_targets:
             target = st.selectbox("Optional TSTR target", ["None"] + common_targets, key="tstr_target")
