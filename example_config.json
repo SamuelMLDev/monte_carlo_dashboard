@@ -1,0 +1,50 @@
+{
+  "confidence_level": 0.95,
+  "description": "Reproducible example comparing regression, weighting, and doubly robust estimation.",
+  "dgp": {
+    "assignment_mode": "logistic",
+    "beta0": 0.0,
+    "beta_scale": 1.0,
+    "confounding_strength": 0.9,
+    "covariate_correlation": 0.3,
+    "covariate_distribution": "normal",
+    "error_distribution": "gaussian",
+    "heteroskedastic_strength": 1.0,
+    "interaction_strength": 0.0,
+    "noise_sd": 1.0,
+    "nonlinear_strength": 0.0,
+    "num_covariates": 1,
+    "outcome_model": "linear",
+    "outcome_type": "continuous",
+    "propensity_clip": 0.01,
+    "quadratic_strength": 0.0,
+    "student_t_df": 5.0,
+    "tau0": 0.5,
+    "tau1": 0.0,
+    "treatment_intercept": 0.0,
+    "treatment_probability": 0.5
+  },
+  "estimand": "sample_ate",
+  "estimator_settings": {},
+  "estimators": [
+    "OLS regression (HC3)",
+    "Inverse probability weighting",
+    "Doubly robust AIPW"
+  ],
+  "factors": {
+    "sample_size": [
+      250,
+      500,
+      1000
+    ]
+  },
+  "generator": "parametric",
+  "generator_config": {},
+  "mode": "standard",
+  "null_value": 0.0,
+  "replications": 500,
+  "sample_size": 500,
+  "seed": 42,
+  "title": "Example moderate-confounding study",
+  "workers": 1
+}
