@@ -1,5 +1,7 @@
 # Monte Carlo Research Laboratory
 
+[![Tests](https://github.com/SamuelMLDev/monte_carlo_dashboard/actions/workflows/tests.yml/badge.svg)](https://github.com/SamuelMLDev/monte_carlo_dashboard/actions/workflows/tests.yml)
+
 A local-first Streamlit application and Python simulation framework for designing, running, diagnosing, and reproducing Monte Carlo studies of treatment-effect estimators.
 
 The project is intended for quantitative methodology exploration rather than estimator marketing. It reports how methods behave **under the assumptions you configure**, preserves failed fits, quantifies Monte Carlo uncertainty, and exports machine-readable experiment manifests that can be rerun exactly.
@@ -246,7 +248,7 @@ DGP-only presets are also available for clean randomization, weak/moderate/stron
 
 ## Installation
 
-Python 3.10–3.13 is recommended.
+Python 3.10–3.14 is supported by the current project configuration. Python 3.14.2 has been validated locally.
 
 ### `venv` / pip
 
@@ -524,3 +526,8 @@ When real and synthetic tabular datasets are supplied, the optional module suppo
 - [`docs/extending.md`](docs/extending.md) — adding generators, estimators, metrics, and figures
 - [`docs/benchmark.md`](docs/benchmark.md) — serial/parallel benchmark methodology
 - [`docs/validation.md`](docs/validation.md) — tests, preset runs, exports, benchmark, and launch limitation
+
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
